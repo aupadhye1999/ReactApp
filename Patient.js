@@ -3,6 +3,7 @@ import { useState } from "react"
 
 export default function Patient() {
 
+    const state = ["Maharashtra","Karnataka","Goa"]
     const [ patient, setpatient ] = useState({ 
         firstname: '', 
         middlename:'',
@@ -10,7 +11,9 @@ export default function Patient() {
         age: 0, 
         birthdate: new Date().toJSON().toString().substring(0,10),
         gender:'male',
-        jobpreference:'',
+        workfromhome:'',
+        remote:'',
+        state:'',
         Address:{
             pincode:'',
             contact: ''
@@ -19,7 +22,6 @@ export default function Patient() {
 
     function FormEvent(e) {
         debugger;
-        console.log(e);
 
         const { name, value, checked,type } = e.target;
 
@@ -99,18 +101,34 @@ export default function Patient() {
                             <label className="p-2">Contact No</label>
                             <input className=" form-control" name="contact" value={patient.Address.contact} onChange={FormEvent}></input>
                         </div>
+                        <div className="col-md-3">
+                            <label className="p-2">State</label>
+                            <select className=" form-select" name="state" value={patient.state} onChange={FormEvent}>
+                            {
+                                state.map((x) => {
+                                    return (<option key={x} value={x}>{x}</option>);
+                                }
+                            )
+                            }
+                            </select>
+                        </div>
                         <div className="row d-inline">
                             <div className="col-md-2">
                             <label className="mt-4">Job Preference</label>
                             <div className=" form-check">
                                 <label className="form-check-label" htmlFor='job'>Work From Office</label>
-                                <input className=" form-check-input" type="checkbox" name="jobpreference" value={patient.jobpreference} onChange={FormEvent}></input>
+                                <input className=" form-check-input" type="checkbox" name="workfromhome" value={patient.workfromhome} onChange={FormEvent}></input>
                             </div>
                             <div className=" form-check">
                                 <label className=" form-check-label" htmlFor='job'>Remote</label>
-                                <input className=" form-check-input" type="checkbox" name="jobpreference" value={patient.jobpreference} onChange={FormEvent}></input>
+                                <input className=" form-check-input" type="checkbox" name="remote" value={patient.remote} onChange={FormEvent}></input>
                             </div>
                             </div>
+                        </div>
+                    </div>
+                    <div className="row d-flex justify-content-center">
+                        <div className="col-md-3">
+                            <button className=" btn btn-primary" onClick={()=> {console.log(patient)}}>Submit</button>
                         </div>
                     </div>
                 </div>
